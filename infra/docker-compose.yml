@@ -1,0 +1,17 @@
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: sentinel-mosquitto
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - mosquitto_data:/mosquitto/data
+    restart: unless-stopped
+
+  # api:        -> ajouté par le Dev
+  # db:         -> ajouté par l'Infra
+  # dashboard:  -> ajouté par le Dev
+
+volumes:
+  mosquitto_data:
