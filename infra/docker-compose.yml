@@ -9,9 +9,22 @@ services:
       - mosquitto_data:/mosquitto/data
     restart: unless-stopped
 
-  # api:        -> ajouté par le Dev
-  # db:         -> ajouté par l'Infra
-  # dashboard:  -> ajouté par le Dev
+  db:
+    image: postgres:16
+    container_name: sentinel-db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: sentinel
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # api:        -> on l'ajoutera juste après
+  # dashboard:  -> plus tard
 
 volumes:
   mosquitto_data:
+  db_data:
